@@ -17,7 +17,7 @@ while True:
     instance = GrowattConnect(config['growatt']['username'], config['growatt']['password'],config['growatt']['plant_id'])
     status = instance.get_percentage()
     percentage = int(status.replace('%',''))
-    if percentage < 50 and state=='gt':
+    if percentage < 60 and state=='gt':
         bot.send_message(user_id,"Battery now lower than 50%")
         state = 'lt'
         continue
@@ -27,8 +27,7 @@ while True:
         bot.send_message(user_id,"Battery level over 60%")
         state = 'gt'
     elif percentage >= 60 and state=='gt':
-        bot.send_message(user_id,"Battery level over 60%")
-        state = 'gt'
+        continue
     else:
         bot.send_message(user_id,"skipped all elifs?")
     time.sleep(900)
